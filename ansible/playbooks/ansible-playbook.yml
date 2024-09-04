@@ -1,14 +1,20 @@
+---
 - name: Configure EC2 instances
-  hosts: ec2  # Replace 'ec2' with your actual inventory group name if different
+  hosts: ec2  # This should match the group name in your Ansible inventory file
   become: yes
+
   tasks:
+    - name: Update and upgrade APT packages
+      apt:
+        update_cache: yes
+        upgrade: dist
+    
     - name: Install Docker
       apt:
         name: docker.io
         state: present
-        update_cache: yes
 
-    - name: Start Docker
+    - name: Start and enable Docker service
       service:
         name: docker
         state: started

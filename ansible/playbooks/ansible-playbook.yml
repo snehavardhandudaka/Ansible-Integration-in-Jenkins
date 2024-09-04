@@ -1,19 +1,12 @@
 ---
-- hosts: all
-  become: yes
+- name: Configure EC2 instances
+  hosts: ec2
   tasks:
-    - name: Update and upgrade apt packages
+    - name: Install Docker
       apt:
-        update_cache: yes
-        upgrade: dist
-
-    - name: Install Apache
-      apt:
-        name: apache2
+        name: docker.io
         state: present
-
-    - name: Ensure Apache is running
+    - name: Start Docker
       service:
-        name: apache2
+        name: docker
         state: started
-

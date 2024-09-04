@@ -43,9 +43,7 @@ pipeline {
                 }
             }
         }
-    }
-}
-        // Optional: Additional stages for building and deploying your application
+
         stage('Build Application') {
             steps {
                 sh 'mvn clean install'

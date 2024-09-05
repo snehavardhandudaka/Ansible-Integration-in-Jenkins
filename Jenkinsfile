@@ -38,7 +38,7 @@ pipeline {
 
                     // Tag and push Docker image to Docker Hub
                     sh 'docker tag myapp:latest $DOCKER_USERNAME/myapp:latest'
-                    sh 'docker push $vardhansneha/vardhan-project:latest'
+                    sh 'docker push $vardhansneha/myapp:latest'
                 }
             }
         }

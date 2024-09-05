@@ -37,7 +37,7 @@ pipeline {
                     }
 
                     // Tag and push Docker image to Docker Hub or another registry
-                    sh 'docker tag myapp:latest $DOCKER_USERNAME/myapp:latest'
+                    sh 'docker tag myapp:latest $DOCKER_USERNAME/vardhan-project:latest'
                     sh 'docker push $DOCKER_USERNAME/myapp:latest'
                 }
             }

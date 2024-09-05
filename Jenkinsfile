@@ -40,7 +40,7 @@ pipeline {
                         def playbookPath = '/home/ubuntu/configure_ec2.yml'
 
                         // Connect to Ansible Control Node, copy playbook
-                        sh "scp -i ~/TWN-KP.pem configure_ec2.yml ubuntu@${controlNodeIP}:/home/ubuntu/"
+                        sh "scp -i ~/TWN-KP.pem configure_ec2.yml ubuntu@$ec2-44-202-237-172:/home/ubuntu/"
                         
                         // Install dependencies and run playbook
                         sh """

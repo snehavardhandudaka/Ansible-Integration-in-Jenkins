@@ -3,8 +3,8 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Pull source code from Git
-                git 'https://github.com/snehavardhandudaka/Ansible-Integration-in-Jenkins.git'
+                // Pull source code from Git, specifying branch if necessary
+                git branch: 'main', url: 'https://github.com/snehavardhandudaka/Ansible-Integration-in-Jenkins.git'
             }
         }
         stage('Build with Maven') {
@@ -40,12 +40,11 @@ pipeline {
                         def playbookPath = '/home/ubuntu/configure_ec2.yml'
 
                         // Connect to Ansible Control Node, copy playbook
-                        sh "scp -i ~/TWN-KP.pem configure_ec2.yml ubuntu@$ec2-44-202-237-172:/home/ubuntu/"
+                        sh "scp -i ~/TWN-KP.pem configure_ec2.yml ubuntu@${controlNodeIP}:/home/ubuntu/"
                         
                         // Install dependencies and run playbook
                         sh """
-                            ssh -i ~/TWN-KP.pem ubuntu@${controlNodeIP} 'sudo apt update'
-                            ssh -i ~/TWN-KP.pem ubuntu@${controlNodeIP} 'sudo apt install -y ansible python3-pip'
+                            ssh -i ~/TWN-KP.pem ubuntu@${controlNodeIP} 'sudo apt update && sudo apt install -y ansible python3-pip'
                             ssh -i ~/TWN-KP.pem ubuntu@${controlNodeIP} 'pip3 install boto3'
                             ssh -i ~/TWN-KP.pem ubuntu@${controlNodeIP} 'ansible-playbook /home/ubuntu/configure_ec2.yml'
                         """
@@ -55,4 +54,3 @@ pipeline {
         }
     }
 }
-

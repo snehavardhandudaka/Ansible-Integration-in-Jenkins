@@ -1,5 +1,10 @@
 pipeline {
     agent any
+    environment {
+        // Define environment variables for Docker registry credentials
+        DOCKER_CREDENTIALS_ID = 'dudakasnehavardhan@gmail.com' // Replace with your Jenkins Docker credentials ID
+        DOCKER_REGISTRY_URL = 'vardhansneha/vardhan-project' // Replace with your Docker registry URL if needed
+    }
     stages {
         stage('Checkout') {
             steps {
@@ -26,9 +31,14 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    // Push Docker image to Docker Hub or another registry
-                    sh 'docker tag myapp:latest your-docker-repo/myapp:latest'
-                    sh 'docker push your-docker-repo/myapp:latest'
+                    // Login to Docker registry
+                    withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        sh 'echo $DOCKER_PASSWORD | docker login $DOCKER_REGISTRY_URL -u $DOCKER_USERNAME --password-stdin'
+                    }
+
+                    // Tag and push Docker image to Docker Hub or another registry
+                    sh 'docker tag myapp:latest $DOCKER_REGISTRY_URL/myapp:latest'
+                    sh 'docker push $DOCKER_REGISTRY_URL/myapp:latest'
                 }
             }
         }
@@ -40,13 +50,13 @@ pipeline {
                         def playbookPath = '/home/ubuntu/configure_ec2.yml'
 
                         // Connect to Ansible Control Node, copy playbook
-                        sh "scp -i ~/TWN-KP.pem configure_ec2.yml ubuntu@${controlNodeIP}:/home/ubuntu/"
+                        sh "scp -i ~/TWN-KP.pem configure_ec2.yml ubuntu@${controlNodeIP}:${playbookPath}"
                         
                         // Install dependencies and run playbook
                         sh """
                             ssh -i ~/TWN-KP.pem ubuntu@${controlNodeIP} 'sudo apt update && sudo apt install -y ansible python3-pip'
                             ssh -i ~/TWN-KP.pem ubuntu@${controlNodeIP} 'pip3 install boto3'
-                            ssh -i ~/TWN-KP.pem ubuntu@${controlNodeIP} 'ansible-playbook /home/ubuntu/configure_ec2.yml'
+                            ssh -i ~/TWN-KP.pem ubuntu@${controlNodeIP} 'ansible-playbook ${playbookPath}'
                         """
                     }
                 }

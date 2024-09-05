@@ -3,7 +3,7 @@ pipeline {
     environment {
         // Define environment variables for Docker registry credentials
         DOCKER_CREDENTIALS_ID = 'DOCKER-HUB' // Replace with your Jenkins Docker credentials ID
-        DOCKER_REGISTRY_URL = 'https://hub.docker.com/repository/docker/vardhansneha' // Replace with your Docker registry URL if needed
+        DOCKER_REGISTRY_URL = 'docker.io' // Docker Hub registry URL (not the full repository path)
     }
     stages {
         stage('Checkout') {
@@ -33,7 +33,7 @@ pipeline {
                 script {
                     // Login to Docker registry
                     withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                        sh 'echo $DOCKER_PASSWORD | docker login $DOCKER_REGISTRY_URL -u $DOCKER_USERNAME --password-stdin'
+                        sh 'echo $DOCKER_PASSWORD | docker login https://index.docker.io/v1/ -u $DOCKER_USERNAME --password-stdin'
                     }
 
                     // Tag and push Docker image to Docker Hub or another registry
@@ -56,11 +56,4 @@ pipeline {
                         sh """
                             ssh -i ~/TWN-KP.pem ubuntu@${controlNodeIP} 'sudo apt update && sudo apt install -y ansible python3-pip'
                             ssh -i ~/TWN-KP.pem ubuntu@${controlNodeIP} 'pip3 install boto3'
-                            ssh -i ~/TWN-KP.pem ubuntu@${controlNodeIP} 'ansible-playbook ${playbookPath}'
-                        """
-                    }
-                }
-            }
-        }
-    }
-}
+                            ssh -i ~/TWN-KP.pem ubuntu@${controlNodeIP} 'ansible-play

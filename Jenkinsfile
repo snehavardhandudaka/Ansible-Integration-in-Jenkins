@@ -3,7 +3,7 @@ pipeline {
     environment {
         // Define environment variables for Docker registry credentials
         DOCKER_CREDENTIALS_ID = 'DOCKER-HUB' // Replace with your Jenkins Docker credentials ID
-        DOCKER_REGISTRY_URL = 'docker.io' // Use 'docker.io' for Docker Hub
+        DOCKER_REGISTRY_URL = 'https://hub.docker.com/repository/docker/vardhansneha' // Replace with your Docker registry URL if needed
     }
     stages {
         stage('Checkout') {
@@ -36,9 +36,9 @@ pipeline {
                         sh 'echo $DOCKER_PASSWORD | docker login $DOCKER_REGISTRY_URL -u $DOCKER_USERNAME --password-stdin'
                     }
 
-                    // Tag and push Docker image to Docker Hub
+                    // Tag and push Docker image to Docker Hub or another registry
                     sh 'docker tag myapp:latest $DOCKER_USERNAME/myapp:latest'
-                    sh 'docker push $vardhansneha/myapp:latest'
+                    sh 'docker push $DOCKER_USERNAME/myapp:latest'
                 }
             }
         }

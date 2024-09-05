@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         // Define environment variables for Docker registry credentials
-        DOCKER_CREDENTIALS_ID = 'vardhansneha/vardhan-project' // Replace with your Jenkins Docker credentials ID
+        DOCKER_CREDENTIALS_ID = 'DOCKER-HUB' // Replace with your Jenkins Docker credentials ID
         DOCKER_REGISTRY_URL = 'https://hub.docker.com/repository/docker/vardhansneha/vardhan-project/general' // Replace with your Docker registry URL if needed
     }
     stages {

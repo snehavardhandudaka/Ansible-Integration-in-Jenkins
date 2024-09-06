@@ -3,7 +3,7 @@ pipeline {
     environment {
         DOCKER_CREDENTIALS_ID = 'vardhansneha' // Docker credentials ID
         DOCKER_REGISTRY_URL = 'https://index.docker.io/v1/' // Docker registry URL
-        IMAGE_NAME = 'myapp'
+        IMAGE_NAME = 'my-app-1.0'
         REPO_NAME = 'vardhan-project'
         TAG = 'latest'
         DOCKER_USERNAME = 'vardhansneha' // Your Docker Hub username

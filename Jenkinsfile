@@ -7,6 +7,7 @@ pipeline {
         REPO_NAME = 'vardhan-project'
         TAG = 'latest'
         DOCKER_USERNAME = 'vardhansneha' // Your Docker Hub username
+        AWS_CREDENTIALS_PATH = '/var/lib/jenkins/aws-credentials-pem' // Path to AWS credentials PEM
     }
     stages {
         stage('Checkout') {
@@ -49,12 +50,16 @@ pipeline {
                         def controlNodeIP = '44.202.237.172'
                         def playbookPath = '/home/ubuntu/configure_ec2.yml'
 
-                        sh "scp -i ~/aws-credentials-pem configure_ec2.yml ubuntu@${controlNodeIP}:${playbookPath}"
-
+                        // SCP the playbook to the remote server
                         sh """
-                            ssh -i ~/aws-credentials-pem ubuntu@${controlNodeIP} 'sudo apt update && sudo apt install -y ansible python3-pip'
-                            ssh -i ~/aws-credentials-pem ubuntu@${controlNodeIP} 'pip3 install boto3'
-                            ssh -i ~/aws-credentials-pem ubuntu@${controlNodeIP} 'ansible-playbook ${playbookPath}'
+                            scp -o StrictHostKeyChecking=no -i ${AWS_CREDENTIALS_PATH} configure_ec2.yml ubuntu@${controlNodeIP}:${playbookPath}
+                        """
+
+                        // Run commands on the remote server
+                        sh """
+                            ssh -o StrictHostKeyChecking=no -i ${AWS_CREDENTIALS_PATH} ubuntu@${controlNodeIP} 'sudo apt update && sudo apt install -y ansible python3-pip'
+                            ssh -o StrictHostKeyChecking=no -i ${AWS_CREDENTIALS_PATH} ubuntu@${controlNodeIP} 'pip3 install boto3'
+                            ssh -o StrictHostKeyChecking=no -i ${AWS_CREDENTIALS_PATH} ubuntu@${controlNodeIP} 'ansible-playbook ${playbookPath}'
                         """
                     }
                 }

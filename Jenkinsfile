@@ -6,6 +6,7 @@ pipeline {
         IMAGE_NAME = 'myapp'
         REPO_NAME = 'vardhan-project'
         TAG = 'latest'
+        DOCKER_USERNAME = 'vardhansneha' // Your Docker Hub username
     }
     stages {
         stage('Checkout') {

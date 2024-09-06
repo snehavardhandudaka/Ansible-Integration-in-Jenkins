@@ -33,7 +33,9 @@ pipeline {
                         // Login to Docker registry
                         docker.withRegistry(DOCKER_REGISTRY_URL, DOCKER_CREDENTIALS_ID) {
                             def image = docker.image("${IMAGE_NAME}:${TAG}")
+                            // Tag the image
                             image.tag("${DOCKER_USERNAME}/${REPO_NAME}:${TAG}")
+                            // Push the image
                             image.push("${TAG}")
                         }
                     }

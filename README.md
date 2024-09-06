@@ -4,9 +4,10 @@
          In this project, I set up a complete CI/CD pipeline to automate the deployment and management of cloud infrastructure. 
          Here’s what I built:
            1. Jenkins Server: I set up a Jenkins server to manage CI/CD processes.
-           2. Ansible Control Node: I created a dedicated server to run Ansible, which is a tool for automating server configurations.
+           2. Ansible Control Node: I created a dedicated server to run Ansible, which is a tool for automating server 
+              configurations.
            3. Ansible Playbook: I wrote an Ansible playbook to configure two Amazon EC2 instances, including setting
-               up Docker and deploying a Docker container.
+              up Docker and deploying a Docker container.
 ------------------------              
          What Did I Learn?
           A. CI/CD Integration: How to integrate Jenkins with Ansible to automate software deployment.

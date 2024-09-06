@@ -1,11 +1,12 @@
 # Ansible-Integration-in-Jenkins
 
          What Did I Build?
-         In this project, I set up a complete CI/CD pipeline to automate the deployment and management of cloud infrastructure. Here’s what I built:
+         In this project, I set up a complete CI/CD pipeline to automate the deployment and management of cloud infrastructure. 
+         Here’s what I built:
            1. Jenkins Server: I set up a Jenkins server to manage CI/CD processes.
            2. Ansible Control Node: I created a dedicated server to run Ansible, which is a tool for automating server configurations.
-           3. Ansible Playbook: I wrote an Ansible playbook to configure two Amazon EC2 instances, including setting up Docker and 
-              deploying a Docker container.
+           3. Ansible Playbook: I wrote an Ansible playbook to configure two Amazon EC2 instances, including setting
+               up Docker and deploying a Docker container.
 ------------------------              
          What Did I Learn?
           A. CI/CD Integration: How to integrate Jenkins with Ansible to automate software deployment.
@@ -36,4 +37,5 @@
             ii. Upload the playbook and configuration files.
            iii. Install necessary tools on the Ansible server.
             iV. Run the playbook to configure the EC2 instances and deploy the application.
-         This setup ensures that my application is automatically deployed and managed on cloud servers, streamlining the development and deployment process.
+         This setup ensures that my application is automatically deployed and managed on cloud servers, streamlining 
+         the development and deployment process.

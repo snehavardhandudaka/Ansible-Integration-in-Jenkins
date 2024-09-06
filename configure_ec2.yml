@@ -18,16 +18,16 @@
 
     - name: Pull Docker image
       docker_image:
-        name: your-docker-repo/myapp
+        name: vardhansneha/vardhan-project
+        tag: latest
         source: pull
       tags: docker
 
     - name: Run Docker container
       docker_container:
         name: myapp
-        image: your-docker-repo/myapp
+        image: vardhansneha/vardhan-project:latest
         state: started
         ports:
           - "8080:8080"
       tags: docker
-

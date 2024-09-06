@@ -57,9 +57,13 @@ pipeline {
 
                         // Run commands on the remote server
                         sh """
-                            ssh -o StrictHostKeyChecking=no -i ${AWS_CREDENTIALS_PATH} ubuntu@${controlNodeIP} 'sudo apt update && sudo apt install -y ansible python3-pip'
-                            ssh -o StrictHostKeyChecking=no -i ${AWS_CREDENTIALS_PATH} ubuntu@${controlNodeIP} 'pip3 install boto3'
-                            ssh -o StrictHostKeyChecking=no -i ${AWS_CREDENTIALS_PATH} ubuntu@${controlNodeIP} 'ansible-playbook ${playbookPath}'
+                            ssh -o StrictHostKeyChecking=no -i ${AWS_CREDENTIALS_PATH} ubuntu@${controlNodeIP} '
+                            sudo apt update && sudo apt install -y ansible python3-pip
+                            python3 -m venv myenv
+                            source myenv/bin/activate
+                            pip install boto3
+                            ansible-playbook ${playbookPath}
+                            '
                         """
                     }
                 }

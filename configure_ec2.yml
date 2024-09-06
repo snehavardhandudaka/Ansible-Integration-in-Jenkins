@@ -1,0 +1,33 @@
+---
+- name: Configure EC2 Instances
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+      tags: docker
+
+    - name: Start Docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes
+      tags: docker
+
+    - name: Pull Docker image
+      docker_image:
+        name: your-docker-repo/myapp
+        source: pull
+      tags: docker
+
+    - name: Run Docker container
+      docker_container:
+        name: myapp
+        image: your-docker-repo/myapp
+        state: started
+        ports:
+          - "8080:8080"
+      tags: docker
+

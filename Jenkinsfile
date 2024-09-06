@@ -44,17 +44,17 @@ pipeline {
         }
         stage('Deploy with Ansible') {
             steps {
-                sshagent(['EC-2-SERVER']) {
+                sshagent(['TWN-KP.pem']) {
                     script {
                         def controlNodeIP = '44.202.237.172'
                         def playbookPath = '/home/ubuntu/configure_ec2.yml'
 
-                        sh "scp -i ~/EC-2-SERVER configure_ec2.yml ubuntu@${controlNodeIP}:${playbookPath}"
+                        sh "scp -i ~/TWN-KP.pem configure_ec2.yml ubuntu@${controlNodeIP}:${playbookPath}"
 
                         sh """
-                            ssh -i ~/EC-2-SERVER ubuntu@${controlNodeIP} 'sudo apt update && sudo apt install -y ansible python3-pip'
-                            ssh -i ~/EC-2-SERVER ubuntu@${controlNodeIP} 'pip3 install boto3'
-                            ssh -i ~/EC-2-SERVER ubuntu@${controlNodeIP} 'ansible-playbook ${playbookPath}'
+                            ssh -i ~/TWN-KP.pem ubuntu@${controlNodeIP} 'sudo apt update && sudo apt install -y ansible python3-pip'
+                            ssh -i ~/TWN-KP.pem ubuntu@${controlNodeIP} 'pip3 install boto3'
+                            ssh -i ~/TWN-KP.pem ubuntu@${controlNodeIP} 'ansible-playbook ${playbookPath}'
                         """
                     }
                 }

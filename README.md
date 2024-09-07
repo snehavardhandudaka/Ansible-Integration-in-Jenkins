@@ -8,14 +8,14 @@
               configurations.
            3. Ansible Playbook: I wrote an Ansible playbook to configure two Amazon EC2 instances, including setting
               up Docker and deploying a Docker container.
-------------------------              
+            
          What Did I Learn?
           A. CI/CD Integration: How to integrate Jenkins with Ansible to automate software deployment.
           B. Remote Automation: How to manage and configure remote servers using Ansible.
           C. Cloud Infrastructure: How to set up and manage EC2 instances on AWS.
           D. Docker Deployment: How to deploy Docker containers on cloud servers.
           E. Credential Management: Best practices for securely managing SSH keys and other credentials.
- -----------------------         
+         
          Technologies Used:
           A. Ansible: For automating server configuration and deployment tasks.
           B. Jenkins: To manage and execute the CI/CD pipeline.
@@ -24,7 +24,7 @@
           E. Java & Maven: Used to build the Java application.
           F. Boto3: Python library for interacting with AWS services.
           G. Linux & Git: Used for server operations and version control.
---------------------------          
+        
          What I Did?
           A. Set Up Jenkins: I set up a Jenkins server to handle the CI/CD pipeline.
           B. Configured Ansible Control Node: I set up another server to run Ansible. This server was configured with Ansible, 
